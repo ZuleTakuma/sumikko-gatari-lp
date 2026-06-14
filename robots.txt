@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sumikkogatari.nakami-fukuoka.com/sitemap.xml
