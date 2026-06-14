@@ -39,16 +39,15 @@
   .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
 
   /* HERO */
-  header.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:80px 0 64px;position:relative;}
-  .eyebrow{font-size:.82rem;letter-spacing:.32em;color:var(--moss);margin-bottom:30px;display:flex;align-items:center;gap:14px;}
+  header.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:96px 0 64px;position:relative;}
+  .hero-inner{display:flex;flex-direction:column;align-items:flex-start;}
+  .eyebrow{font-size:.82rem;letter-spacing:.32em;color:var(--moss);margin-bottom:24px;display:flex;align-items:center;gap:14px;}
   .eyebrow::before{content:"";width:34px;height:1px;background:var(--moss);display:inline-block;}
-  .hero h1{font-size:clamp(2.7rem,9vw,6rem);font-weight:800;line-height:1.18;letter-spacing:.02em;margin-bottom:8px;}
-  .hero h1 .dot{color:var(--corner);}
-  .hero .lead{margin-top:26px;max-width:30em;font-size:clamp(1rem,2.4vw,1.18rem);color:#4a443d;}
+  .hero-art{width:100%;border-radius:20px;overflow:hidden;box-shadow:0 18px 50px var(--shadow);background:#e9e9ea;}
+  .hero-art img{width:100%;height:auto;display:block;}
+  .hero .lead{margin-top:30px;max-width:30em;font-size:clamp(1rem,2.4vw,1.18rem);color:#4a443d;}
   .hero .lead b{color:var(--corner);font-weight:700;}
-  .lantern{position:absolute;top:18%;right:4%;width:clamp(80px,16vw,150px);height:auto;animation:float 6s ease-in-out infinite;}
-  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-  .cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:38px;}
+  .cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px;}
   .btn{display:inline-flex;align-items:center;gap:9px;padding:15px 30px;border-radius:999px;font-weight:700;font-size:1rem;text-decoration:none;transition:transform .18s ease,box-shadow .18s ease;cursor:pointer;border:none;font-family:inherit;}
   .btn-main{background:var(--corner);color:#fff;box-shadow:0 8px 22px rgba(232,100,60,.32);}
   .btn-main:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(232,100,60,.42);}
@@ -120,7 +119,7 @@
 
   footer{padding:34px 0 48px;text-align:center;color:var(--moss);font-size:.8rem;border-top:1px solid var(--line);}
 
-  @media(prefers-reduced-motion:reduce){.lantern,.pulse,.spinner{animation:none;}}
+  @media(prefers-reduced-motion:reduce){.pulse,.spinner{animation:none;}}
 </style>
 </head>
 <body>
@@ -129,18 +128,11 @@
 
 <!-- HERO -->
 <header class="hero">
-  <svg class="lantern" viewBox="0 0 120 150" fill="none" aria-hidden="true">
-    <ellipse cx="60" cy="142" rx="34" ry="6" fill="#000" opacity=".06"/>
-    <path d="M30 60c0-20 13-34 30-34s30 14 30 34v44c0 14-13 24-30 24s-30-10-30-24V60z" fill="#f4a98e"/>
-    <path d="M30 60c0-20 13-34 30-34s30 14 30 34v10H30V60z" fill="#e8643c"/>
-    <rect x="50" y="14" width="20" height="14" rx="4" fill="#5c6b4e"/>
-    <circle cx="48" cy="78" r="4.5" fill="#2b2622"/><circle cx="72" cy="78" r="4.5" fill="#2b2622"/>
-    <path d="M53 90c3 3 11 3 14 0" stroke="#2b2622" stroke-width="3" stroke-linecap="round"/>
-    <circle cx="42" cy="88" r="5" fill="#e8643c" opacity=".5"/><circle cx="78" cy="88" r="5" fill="#e8643c" opacity=".5"/>
-  </svg>
-  <div class="wrap">
+  <div class="wrap hero-inner">
     <div class="eyebrow">YOUTUBE CHANNEL</div>
-    <h1>すみっコ<br>がたり<span class="dot">.</span></h1>
+    <div class="hero-art">
+      <img src="hero.jpg" alt="すみっコがたり｜部屋のすみっこに座る、イケと大塚たくま" />
+    </div>
     <p class="lead">世の中の“すみっコ”を拾い上げて語るチャンネル。<br>網羅はむずかしい。でも、<b>すみっコなら語れる。</b></p>
     <div class="cta-row">
       <a class="btn btn-main" href="https://www.youtube.com/@%E3%81%99%E3%81%BF%E3%81%A3%E3%82%B3%E3%81%8C%E3%81%9F%E3%82%8A" target="_blank" rel="noopener">
@@ -304,8 +296,10 @@
   load();
 
   // セクションのふわっと表示
-  const io = new IntersectionObserver(es=>es.forEach(e=>{
-    if(e.isIntersecting){e.target.style.opacity=1;e.target.style.transform='none';io.unobserve(e.target);}
+  const io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.style.opacity=1;e.target.style.transform='none';io.unobserve(e.target);}
+    });
   },{threshold:.12});
   document.querySelectorAll('section .wrap').forEach(el=>{
     if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
