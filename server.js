@@ -71,6 +71,6 @@ app.get("/api/videos", async (req, res) => {
 });
 
 // 静的ファイル（LP本体）を配信
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, ".")));
 
 app.listen(PORT, () => console.log(`すみっコがたり LP → http://localhost:${PORT}`));
