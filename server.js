@@ -30,6 +30,11 @@ function parseFeed(xml) {
     const title = pick("title")
       .replace(/&amp;/g, "&").replace(/&lt;/g, "<")
       .replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+
+    // タイトルに #shorts が付いた動画（ショート）は一覧から除外する。
+    // 大文字小文字の違い（#Shorts / #SHORTS）も無視して判定。
+    if (/#shorts\b/i.test(title)) continue;
+
     const published = pick("published");
     const views = (block.match(/views="(\d+)"/) || [])[1] || null;
 
@@ -71,6 +76,6 @@ app.get("/api/videos", async (req, res) => {
 });
 
 // 静的ファイル（LP本体）を配信
-app.use(express.static(path.join(__dirname, ".")));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.listen(PORT, () => console.log(`すみっコがたり LP → http://localhost:${PORT}`));
